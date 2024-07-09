@@ -18,14 +18,14 @@ public class ClientsController {
     @Autowired
     private ClientsService service;
 
-    @PostMapping()
+    @PostMapping(consumes = "application/json", produces = "application/json")
     public ResponseEntity<Client> create(@RequestBody Client dataClient) {
         try {
             Client client = service.newClient(dataClient);
             return new ResponseEntity<>(client, HttpStatus.CREATED);
         } catch (Exception exception) {
             System.out.println(exception);
-            throw new RuntimeException("Error in Client creation");
+            throw new RuntimeException("Error in Client creation/update");
         }
     }
 
