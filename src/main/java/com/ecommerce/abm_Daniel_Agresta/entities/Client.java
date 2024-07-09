@@ -7,23 +7,25 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "clients")
 @NoArgsConstructor @ToString @EqualsAndHashCode
 public class Client {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter @Setter private Long id;
+    private Long id;
 
-    @Getter @Setter private String name;
+    private String name;
 
-    @Getter @Setter private String lastname;
+    private String lastname;
 
-    @Getter @Setter private Integer docnumber;
+    private Integer docnumber;
 
-    @Getter @Setter private Integer age;
+    private Integer age;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference("client-carts")
-    @Getter @Setter private List<Cart> carts = new ArrayList<>();
+    private List<Cart> carts = new ArrayList<>();
 }

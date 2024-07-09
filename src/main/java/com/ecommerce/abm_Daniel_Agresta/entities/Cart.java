@@ -8,17 +8,19 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "carts")
 @NoArgsConstructor @ToString @EqualsAndHashCode
 public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter @Setter private Long cartId;
+    private Long cartId;
 
-    @Getter @Setter private Integer amount;
+    private Integer amount;
 
-    @Getter @Setter private Double price;
+    private Double price;
 
     @ManyToMany
     @JoinTable(
@@ -27,15 +29,15 @@ public class Cart {
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
     @JsonManagedReference("cart-products")
-    @Getter @Setter private List<Product> products = new ArrayList<>();
+    private List<Product> products = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
     @JsonBackReference("client-carts")
-    @Getter @Setter private Client client;
+    private Client client;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "invoice_id")
-    @Getter @Setter private Invoice invoice;
+    private Invoice invoice;
 
 }
