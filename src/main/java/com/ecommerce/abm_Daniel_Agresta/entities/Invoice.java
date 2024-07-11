@@ -21,8 +21,8 @@ public class Invoice {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
-    private Client client;
+    @Getter @Setter private Client client;
 
     @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Cart> cartDetails = new ArrayList<>();
+    @Getter @Setter private List<Cart> cartDetails = new ArrayList<>();
 }

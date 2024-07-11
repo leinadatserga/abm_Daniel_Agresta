@@ -1,6 +1,7 @@
 package com.ecommerce.abm_Daniel_Agresta.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -29,6 +30,7 @@ public class Cart {
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
     @JsonManagedReference("cart-products")
+    @JsonIgnore
     private List<Product> products = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
