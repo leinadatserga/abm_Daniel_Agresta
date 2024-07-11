@@ -9,19 +9,17 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Setter
-@Getter
 @Entity
 @Table(name = "carts")
 @NoArgsConstructor @ToString @EqualsAndHashCode
 public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long cartId;
+    @Getter @Setter private Long cartId;
 
-    private Integer amount;
+    @Getter @Setter private Integer amount;
 
-    private Double price;
+    @Getter @Setter private Double price;
 
     @ManyToMany
     @JoinTable(
@@ -31,15 +29,15 @@ public class Cart {
     )
     @JsonManagedReference("cart-products")
     @JsonIgnore
-    private List<Product> products = new ArrayList<>();
+    @Getter @Setter private List<Product> products = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
     @JsonBackReference("client-carts")
-    private Client client;
+    @Getter @Setter private Client client;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "invoice_id")
-    private Invoice invoice;
+    @Getter @Setter private Invoice invoice;
 
 }

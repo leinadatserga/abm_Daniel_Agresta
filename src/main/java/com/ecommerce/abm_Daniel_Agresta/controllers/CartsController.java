@@ -2,7 +2,7 @@ package com.ecommerce.abm_Daniel_Agresta.controllers;
 
 import com.ecommerce.abm_Daniel_Agresta.entities.Cart;
 import com.ecommerce.abm_Daniel_Agresta.entities.Product;
-import com.ecommerce.abm_Daniel_Agresta.services.CartService;
+import com.ecommerce.abm_Daniel_Agresta.services.CartsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,12 +15,12 @@ import java.util.Optional;
 @RequestMapping("api/v1/carts")
 public class CartsController {
     @Autowired
-    private CartService cartService;
+    private CartsService cartsService;
 
     @PostMapping
     public ResponseEntity<Object> createCart(@RequestBody Cart cart) {
         try {
-            Cart newCart = cartService.newCart(cart);
+            Cart newCart = cartsService.newCart(cart);
             return new ResponseEntity<>(newCart, HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -29,14 +29,14 @@ public class CartsController {
 
     @GetMapping
     public ResponseEntity<List<Cart>> getAllCarts() {
-        List<Cart> carts = cartService.readAllCarts();
+        List<Cart> carts = cartsService.readAllCarts();
         return new ResponseEntity<>(carts, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Object> getCartById(@PathVariable Long id) {
         try {
-            Optional<Cart> cart = cartService.readCartById(id);
+            Optional<Cart> cart = cartsService.readCartById(id);
             if (cart.isPresent()) {
                 return new ResponseEntity<>(cart.get(), HttpStatus.OK);
             } else {
@@ -50,7 +50,7 @@ public class CartsController {
     @PostMapping("/{id}/product")
     public ResponseEntity<?> addProductToCart(@PathVariable Long id, @RequestBody List<Product> products) {
         try {
-            Cart updatedCart = cartService.addProductToCart(id, products);
+            Cart updatedCart = cartsService.addProductToCart(id, products);
             return new ResponseEntity<>(updatedCart, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
@@ -60,7 +60,7 @@ public class CartsController {
     @PostMapping("/{id}/products")
     public ResponseEntity<Object> addProductsToCart(@PathVariable Long id, @RequestBody List<Long> productIds) {
         try {
-            Cart updatedCart = cartService.addProductsToCart(id, productIds);
+            Cart updatedCart = cartsService.addProductsToCart(id, productIds);
             return new ResponseEntity<>(updatedCart, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
@@ -70,7 +70,7 @@ public class CartsController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteCart(@PathVariable Long id) {
         try {
-            cartService.deleteCart(id);
+            cartsService.deleteCart(id);
             return new ResponseEntity<>("Cart deleted successfully", HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);

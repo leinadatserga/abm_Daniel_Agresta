@@ -26,4 +26,7 @@ public class Client {
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference("client-carts")
     @Getter @Setter private List<Cart> carts = new ArrayList<>();
+
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @Getter @Setter private List<Invoice> invoices = new ArrayList<>();
 }

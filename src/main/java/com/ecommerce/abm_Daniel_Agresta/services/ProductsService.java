@@ -1,6 +1,5 @@
 package com.ecommerce.abm_Daniel_Agresta.services;
 
-import com.ecommerce.abm_Daniel_Agresta.entities.Cart;
 import com.ecommerce.abm_Daniel_Agresta.entities.Product;
 import com.ecommerce.abm_Daniel_Agresta.repositories.CartsRepository;
 import com.ecommerce.abm_Daniel_Agresta.repositories.ProductsRepository;

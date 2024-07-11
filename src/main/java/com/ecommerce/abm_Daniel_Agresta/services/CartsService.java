@@ -6,12 +6,13 @@ import com.ecommerce.abm_Daniel_Agresta.repositories.CartsRepository;
 import com.ecommerce.abm_Daniel_Agresta.repositories.ProductsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CartService {
+public class CartsService {
     @Autowired
     private CartsRepository repository;
 
@@ -22,6 +23,7 @@ public class CartService {
         return repository.findById(id);
     }
 
+    @Transactional
     public Cart newCart(Cart cart) {
         if (cart.getClient() == null) {
             throw new IllegalArgumentException("Cart must been associated to a Client");
@@ -40,6 +42,7 @@ public class CartService {
         return repository.findById(id);
     }
 
+    @Transactional
     public Cart addProductToCart(Long cartId, List<Product> products) {
         Optional<Cart> cartOpt = repository.findById(cartId);
         if (cartOpt.isPresent()) {
@@ -56,6 +59,7 @@ public class CartService {
         }
     }
 
+    @Transactional
     public Cart addProductsToCart(Long cartId, List<Long> productIds) {
         Optional<Cart> cartOpt = repository.findById(cartId);
         if (cartOpt.isPresent()) {

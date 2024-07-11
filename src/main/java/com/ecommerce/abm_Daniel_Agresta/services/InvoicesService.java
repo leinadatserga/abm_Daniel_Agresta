@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class InvoiceService {
+public class InvoicesService {
     @Autowired
     public InvoicesRepository repository;
 
